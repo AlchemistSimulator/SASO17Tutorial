@@ -1,0 +1,7 @@
+module primitives:gradobs
+import primitives:gradient
+if (env.has("obstacle")) {
+  Infinity
+} else {
+  gradient(self.getDeviceUID().getId() == 0)
+}

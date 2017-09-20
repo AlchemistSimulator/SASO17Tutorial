@@ -1,0 +1,18 @@
+incarnation: protelis
+network-model:
+  type: EuclideanDistance
+  parameters: [10]
+displacements:
+  - in:
+      type: Circle
+      parameters: [500, 0, 0, 50]
+    programs: 
+      - 
+        - time-distribution:
+            type: ExponentialTime
+            parameters: [1]
+          type: Event # We define the event manually...
+          actions: # ...because we want to specify a parameter of the Protelis interpreter.
+            - type: RunProtelisProgram
+              parameters: ["primitives:pacemaker", 5] # We discard messages after 5 simulated seconds
+        - program: send

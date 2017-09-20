@@ -1,0 +1,4 @@
+// Make sure that the module is in the classpath!
+module tutorial:zero
+0 // Program script
+

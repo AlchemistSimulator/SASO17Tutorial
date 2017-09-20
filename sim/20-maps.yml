@@ -1,0 +1,17 @@
+incarnation: protelis
+environment:
+  type: OSMEnvironment
+  parameters: ["/vcm.pbf"] # Loads from classpath, an absolute path to the file would work as well
+pools:
+  - pool: &move
+    - time-distribution: 0.1
+      type: Event
+      actions:
+        - type: ReproduceGPSTrace # Other strategies are available, such as interpolate the track using pedestrian roads
+          parameters: ["/vcmuser.gpx", false, "AlignToTime", 1365922800, false, false]
+displacements:
+  - in:
+      type: FromGPSTrace # displace nodes as they are in the GPS track
+      parameters: [1497, "/vcmuser.gpx", false, "AlignToTime", 1365922800, false, false]
+    programs:
+      - *move

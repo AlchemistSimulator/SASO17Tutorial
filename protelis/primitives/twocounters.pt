@@ -1,0 +1,6 @@
+module primitives:twocounters
+def counter() { rep(c <- 0) { c + 1 } }
+[
+  if (counter() % 2 == 0) { counter() } else { counter() },
+  mux (counter() % 2 == 0) { counter() } else { counter() }
+]

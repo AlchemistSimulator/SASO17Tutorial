@@ -1,0 +1,24 @@
+incarnation: protelis
+variables:
+  seed: &seed # You can give the anchor any name, assigning the name of the variable is convenient, though
+    {min: 0, max: 9, step: 1, default: 0} # This variable ranges in [0, 9], steps of 1, defaulting to 0
+  connection-radius: &connection-radius
+    formula: 10 # An instance of a Javascript interpreter is created to evaluate the expression.
+  round-frequency: &round-frequency
+    formula: Math.max($seed, 1) # Other variables can be referred by prefixing them with $ (e.g. $seed would be substituted by the current value of seed).
+    language: scala # The system defaults to Javascript, but a Scala interpreter can be instanced instead
+  program-name: &program-name
+    formula: "'advanced:converge'" # Use whatever type you want - just make sure you use them properly
+seeds:
+  scenario: *seed # This controls the initial displacement of the nodes
+  simulation: *seed # This controls the generated event times
+network-model: { type: EuclideanDistance, parameters: [*connection-radius] }
+program-pools:
+  - compute-gradient: &gradient
+    - { time-distribution: 1, program: *program-name }
+    - program: send
+  - move: &move
+    - time-distribution: { type: ExponentialTime, parameters: [*round-frequency] }
+      type: Event
+      actions: [ { type: MoveToTarget, parameters: [destination, 1] } ]
+displacements: [ { in: { type: Circle, parameters: [500, 0, 0, 50] }, programs: [*gradient, *move] } ]

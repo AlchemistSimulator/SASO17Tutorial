@@ -1,0 +1,16 @@
+incarnation: protelis
+network-model:
+  type: EuclideanDistance
+  parameters: [10]
+displacements:
+  - in:
+      type: Circle
+      parameters: [500, 0, 0, 50]
+    programs: 
+      - 
+        - time-distribution: # Check out in the Alchemist Javadocs all the classes implementing "TimeDistribution" if you want a complete overview of what's available
+            type: ExponentialTime # Markovian-distributed events with rate = 1
+            parameters: [1]
+          program: primitives:counter
+        - program: send
+    contents:

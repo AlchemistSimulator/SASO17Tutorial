@@ -1,0 +1,13 @@
+module primitives:brokengradient
+def gradient(source) {
+  rep (d <- Infinity) {
+    if (source) { // Changed mux with if
+      0
+    } else {
+      // The source never enters this domain!
+      // Frome the single device perspective, it never executes this branch, and so it never shares its knowledge of being a source!
+      minHood(nbr(d) + self.nbrRange())
+    }
+  }
+}
+gradient(self.getDeviceUID().getId() == 0)

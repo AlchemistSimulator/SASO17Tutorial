@@ -1,0 +1,18 @@
+module tutorial:factorial
+/*
+ * The language is functional, every expression has a return value. In case of multiple statements in a block, the value of the last expression is returned.
+ *
+ * Comments are C-like, both single and multiline supported.
+ *
+ * The following defines a new function. If the optional "public" keyword is present, the function will be accessible from outside the module
+ */
+public def factorial(n) { // Dynamic typing
+  if (n <= 1) { 
+    1 // No return keyword, no ";" at the end of the last line
+  } else { // else is mandatory
+    n * factorial(n - 1) // infix operators, recursion
+  } 
+}
+// There is no main function, just write the program at the end (Python-like)
+let num = 5; // mandatory ";" for multiline instructions
+factorial(5) // Function call

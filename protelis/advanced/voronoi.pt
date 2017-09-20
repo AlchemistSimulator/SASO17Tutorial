@@ -1,0 +1,5 @@
+module advanced:voronoi
+import protelis:coord:sparsechoice
+import protelis:coord:spreading
+let metric = () -> { self.nbrRange() };
+G(S(25, metric), 0, metric, v -> { v + metric.apply() })

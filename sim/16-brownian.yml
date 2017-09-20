@@ -1,0 +1,18 @@
+incarnation: protelis
+network-model: { type: EuclideanDistance, parameters: [10] } # Compact syntax
+program-pools:
+  - compute-gradient: &gradient #This is a YAML anchor: assigns a name to this YAML object, and can be reused later in the file. It's not an Alchemist thing, it's pure YAML specification
+    - time-distribution: 1
+      program: primitives:gradient
+    - program: send
+  - move: &move
+    - time-distribution: { type: ExponentialTime, parameters: [1] }
+      type: Event
+      actions:
+        - { type: BrownianMove, parameters: [1] }
+displacements:
+  - in: { type: Circle, parameters: [500, 0, 0, 50] }
+    programs: 
+      # Now maybe the strange double list in "programs" makes sense :)
+      - *gradient # Reference to the anchor previously defined.
+      - *move

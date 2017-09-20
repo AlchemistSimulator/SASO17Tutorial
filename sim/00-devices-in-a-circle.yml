@@ -1,0 +1,9 @@
+incarnation: protelis
+displacements: # In this section we list our device displacements
+  - in:
+      type: Circle
+      parameters:
+        - 500 # Number of devices
+        - 0 # X center of the circle
+        - 0 # Y center of the circle
+        - 50 # radius

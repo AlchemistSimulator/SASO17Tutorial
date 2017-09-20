@@ -1,0 +1,11 @@
+module advanced:summarize
+import protelis:lang:utils
+import protelis:coord:spreading
+import protelis:coord:sparsechoice
+import protelis:coord:accumulation
+import protelis:state:time
+// Let's simulate a sensor measuring the temperature (in Celsius, range 20 to 30) every minute
+env.put("temp", rep (v <- 25) { if(cyclicTimer(60)) { 20 + self.nextRandomDouble() * 10 } else { v }});
+// Let's compute the mean temperature of the whole network and share th infomation to all devices
+let sink = S(Infinity, nbrRange);
+summarize(sink, sum, env.get("temp"), 0) / broadcast(sink, countDevices(distanceTo(sink)))

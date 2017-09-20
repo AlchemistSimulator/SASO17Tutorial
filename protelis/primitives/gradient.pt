@@ -1,0 +1,16 @@
+module primitives:gradient
+
+/*
+ * Compute the distance to the closest source. The input is a field of booleans, this function computes the distance from the closest device where the field yields true.
+ */
+public def gradient(source) {
+  rep (d <- Infinity) { // Start from an infinite distance
+    mux (source) { // Functional multiplexer (evaluates both branches)
+      0 // If I am the source, my distance is zero
+    } else {
+      minHood(nbr(d) + self.nbrRange()) // The distance is computed as the minimum of the sum of the distance between me and my neighbors, and my neighbors and the source, for each neighbor.
+    }
+  }
+}
+// Let's compute the distance from the device "zero"
+gradient(self.getDeviceUID().getId() == 0)

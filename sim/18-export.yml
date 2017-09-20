@@ -1,0 +1,19 @@
+incarnation: protelis
+network-model: { type: EuclideanDistance, parameters: [10] }
+program-pools:
+  - compute-gradient: &gradient
+    - { time-distribution: 1, program: "advanced:converge" }
+    - program: send
+  - move: &move
+    - time-distribution: { type: ExponentialTime, parameters: [1] }
+      type: Event
+      actions: [ { type: MoveToTarget, parameters: [destination, 1] } ]
+displacements: [ { in: { type: Circle, parameters: [500, 0, 0, 50] }, programs: [*gradient, *move] } ]
+export:
+  - time # Exports the current time
+  - number-of-nodes # Exports the number of nodes in the system
+  - molecule: advanced:converge # The name of the sensor / actuator whose value will be exported
+    # Optionally, a "property: program" section can be specified, where "program" is a valid chunk of protelis code. The sensor value will be processed using such code before being exported.
+    value-filter: onlyfinite # You may want to keep poisonous values (Infinities and NaN) from being exported or passed to the aggregator. Available filters are "nofilter" (default), "onlyfinite" (discards both NaN and Infinities), "filternan", "filterinfinity".
+    aggregators: [sum, mean, kurtosis] # The aggregator takes all the data from nodes and reduces it to a single value. If omitted, one value per node will be exported (in this case, 500 columns...). You can load any UnivariateStatistics from the Apache Commons Math library, just by their name.
+    

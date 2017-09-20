@@ -1,0 +1,19 @@
+incarnation: protelis
+network-model:
+  type: EuclideanDistance
+  parameters: [10]
+displacements:
+  - in:
+      type: Circle
+      parameters: [500, 0, 0, 50]
+    programs: 
+      - 
+        - time-distribution: 1
+          program: primitives:gradobs
+        - program: send
+    contents:
+      - in:
+          type: Rectangle
+          parameters: [-15, -50, 30, 75]
+        molecule: obstacle
+        concentration: true

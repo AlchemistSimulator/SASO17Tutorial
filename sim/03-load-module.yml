@@ -1,0 +1,13 @@
+incarnation: protelis
+network-model:
+  type: EuclideanDistance
+  parameters: [10]
+displacements:
+  - in:
+      type: Circle
+      parameters: [500, 0, 0, 50]
+    programs: 
+      - 
+        - time-distribution: 1
+          program: tutorial:zero # Just use the name of the module! The loading happens transparently from the classpath (which, of course, means that your Protelis source folder should be included in your Java classpath)
+        - program: send

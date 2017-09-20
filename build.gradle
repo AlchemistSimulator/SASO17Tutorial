@@ -1,0 +1,28 @@
+// We will need Java
+apply plugin: 'java'
+
+// All the stuff can be found on Maven Central
+repositories { mavenCentral() }
+
+// We need the simulator at version 6.0.2 (change the number to test with newer versions!)
+dependencies { compile "it.unibo.alchemist:alchemist:7.0.0" }
+
+// OK that's a bit more complicated, but in the end just configures a Java process and launches it
+task "run$file"(type: JavaExec){ // Create a new task with a dynamically discovered name (Groovy coolness)
+  classpath = sourceSets.main.runtimeClasspath // Put the simulator and its dependencies in the classpath
+  classpath 'protelis' // Put all the protelis files in the classpath (so the interpreter can find them)
+  classpath 'maps' // Cool stuff for the last example :)
+  main = 'it.unibo.alchemist.Alchemist' // Launch this java class
+  args(
+    "-y", "sim/${file}.yml",
+    "-g", "effects/${file}.aes",
+	"-e", "exported-data"
+  ) // With parameters "-y sim/<SOMETHING>.yml -g effects/<SOMETHING>.aes -e exported-data"
+}
+
+/*
+ * If nothing different is specified, search for a property named "file" in the project, then run a task 
+ * with such name.
+ */
+defaultTasks "run$file"
+

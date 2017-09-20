@@ -1,0 +1,19 @@
+incarnation: protelis
+network-model:
+  type: EuclideanDistance
+  parameters: [10]
+displacements:
+  - in:
+      type: Circle
+      parameters: [500, 0, 0, 50]
+    programs: 
+      - 
+        - time-distribution: 1
+          program: tutorial:deviceaccess
+        - program: send
+    contents: #in this section we can pre-configure the value of sensors
+      - in: # Optionally, we can limit the area of space where to inject such value
+          type: Rectangle
+          parameters: [0, 0, 100, 100]
+        molecule: value # name of the sensor
+        concentration: "somevalue" # initial value (any type)

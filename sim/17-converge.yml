@@ -1,0 +1,17 @@
+incarnation: protelis
+network-model: { type: EuclideanDistance, parameters: [10] }
+program-pools:
+  - compute-gradient: &gradient
+    - time-distribution: 1
+      program: advanced:converge
+    - program: send
+  - move: &move
+    - time-distribution: { type: ExponentialTime, parameters: [1] }
+      type: Event
+      actions:
+        - { type: MoveToTarget, parameters: [destination, 1] }
+displacements:
+  - in: { type: Circle, parameters: [500, 0, 0, 50] }
+    programs: 
+      - *gradient
+      - *move

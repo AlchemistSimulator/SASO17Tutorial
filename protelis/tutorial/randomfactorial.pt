@@ -1,0 +1,19 @@
+module tutorial:randomfactorial
+import java.lang.Math.random // Import java static methods
+def dice() {
+  let rand = random(); // call methods as if they were local functions
+  (6 * rand).intValue() // Java-style method invocation on target objects
+}
+def factorial(n) {
+  if (n <= 1) { 1 } else { n * factorial(n - 1) } 
+}
+def callWithDice(fun) { // Higher-order function
+  let num = dice();
+  fun.apply(num)
+}
+[ // Use square brackets to build a tuple
+  callWithDice(factorial), // higher-order call
+  callWithDice((n) -> {n ^ 2}) // as above, but with an anonymous function (square)
+] * [ 1, 2 ] // Tuple can be used with operators (they must have the same length though)
+/* Elements of a tuple can be accessed using get(), several methods allow to create new tuples using existing ones. Refer to this javadoc: http://protelis-doc.surge.sh/ */
+

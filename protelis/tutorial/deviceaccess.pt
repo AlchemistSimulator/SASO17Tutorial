@@ -1,0 +1,10 @@
+module tutorial:deviceaccess
+/*
+ * Two important entities:
+ * - self: provides access to the device implementation. Different devices have different capabilities, so some Protelis code may not be able to run on some platforms (e.g. code requiring access to the current coordinates may not work in a device implementation that does not expose such information). See ExecutionContext and its sub-interfaces at http://protelis-doc.surge.sh/org/protelis/vm/ExecutionContext.html
+ * - env: provides access by name to sensors/actuators. They are treated uniformly as variables, similarly as accessing a map
+ */
+let injected = if (env.has("value")) { env.get("value") } else { "No value" }; // Read a value, if present
+env.put("a generated value",
+  (100 * self.nextRandomDouble()).intValue()); // This is the best way to ask the platform for a random
+self.getDeviceUID().getId() // The unique identifier of this device

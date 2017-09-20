@@ -1,0 +1,13 @@
+module primitives:pacemaker
+import primitives:counter // import the public function from another Protelis module
+def max(a, b) { // a max working on anything that is comparable
+  if (a > b) { a } else { b }
+}
+def counter() { rep (i <- -1) { i + 1 } } // plain counter
+public def pacemaker(min, max) {
+  let myCount = [counter(), cyclicCounter(min, max)]; // tuple with the count of my rounds and the value of the cyclic counter
+  rep (count <- myCount) { // pick and store...
+    maxHood PlusSelf(nbr(max(myCount, count))) // ...the maximum in my neighborhood between the maximum of my count and the maximum i got until now
+  }.get(1) // we are interested in the second argument of the tuple, the first an implementation detail
+}
+pacemaker(0, 10)

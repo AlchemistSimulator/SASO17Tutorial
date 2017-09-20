@@ -1,0 +1,13 @@
+module primitives:counter
+public def cyclicCounter(min, max) {
+// Let's start from min - 1, so that at the first round we get min.
+  rep(count <- min - 1) {
+    // mux is a functional multiplexer: evaluates both branches and returns one of them
+    mux(count >= max) { // Here == would suffice
+      0
+    } else {
+      count + 1
+    }
+  }
+}
+cyclicCounter(0, 10)
