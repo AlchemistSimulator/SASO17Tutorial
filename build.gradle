@@ -16,7 +16,7 @@ task "run$file"(type: JavaExec){ // Create a new task with a dynamically discove
   args(
     "-y", "sim/${file}.yml",
     "-g", "effects/${file}.aes",
-	"-e", "exported-data"
+    "-e", "exported-data"
   ) // With parameters "-y sim/<SOMETHING>.yml -g effects/<SOMETHING>.aes -e exported-data"
 }
 
