@@ -1,5 +1,5 @@
 module primitives:pacemaker
-import primitives:counter // import the public function from another Protelis module
+import primitives:counter
 def max(a, b) { // a max working on anything that is comparable
   if (a > b) { a } else { b }
 }
